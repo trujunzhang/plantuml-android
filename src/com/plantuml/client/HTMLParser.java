@@ -19,10 +19,8 @@ class HTMLParser {
     static final String SRC_ATTR = "src";
 
     static URI parseImageURI(InputStream html) throws XmlPullParserException, IOException {
-        XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
-        XmlPullParser parser = factory.newPullParser();
+        XmlPullParser parser = getParser(html);
 
-        parser.setInput(html, ENCODING);
         int eventType = parser.getEventType();
         while (eventType != XmlPullParser.END_DOCUMENT) {
             if(eventType == XmlPullParser.START_TAG) {
@@ -36,6 +34,14 @@ class HTMLParser {
         }
 
         return null;
+    }
+
+    static XmlPullParser getParser(InputStream xml) throws XmlPullParserException {
+        XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+        XmlPullParser parser = factory.newPullParser();
+        parser.setInput(xml, ENCODING);
+        parser.defineEntityReplacementText("nbsp", "\u0160");
+        return parser;
     }
     
     static URI string2URI(String src) {
