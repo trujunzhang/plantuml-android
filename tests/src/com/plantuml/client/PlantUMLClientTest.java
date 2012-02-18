@@ -22,6 +22,7 @@ public class PlantUMLClientTest extends AndroidTestCase {
         File image = client.getDiagramFile("Alice -> Bob");
         assertTrue(image.isFile());
         assertTrue(image.lastModified() > startTime);
+        assertTrue(image.length() > 0);
     }
     
     public void testGetImageFile() throws URISyntaxException {

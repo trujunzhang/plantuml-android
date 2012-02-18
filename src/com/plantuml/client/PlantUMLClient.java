@@ -10,7 +10,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -98,7 +97,7 @@ public class PlantUMLClient {
         HttpGet request = new HttpGet(uri);
         HttpResponse response = this.client.execute(request);
         HttpEntity responseEntity = response.getEntity();
-        responseEntity.writeTo(new BufferedOutputStream(new FileOutputStream(file)));
+        responseEntity.writeTo(new FileOutputStream(file));
     }
     
 }
