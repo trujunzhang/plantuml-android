@@ -1,0 +1,7 @@
+"You favorite text editor" as editor -> editor : edit
+editor -> "PlantUML for Android" as converter : share text
+converter -> "PlantUML Server on plantuml.com" as server : post text
+server -> converter : get image
+converter -> converter : preview
+converter -> "You favorite image tool" as viewer : share image
+viewer -> viewer : postprocessing
