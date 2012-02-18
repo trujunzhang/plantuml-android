@@ -18,21 +18,24 @@ class HTMLParser {
     static final String IMG_TAG = "img";
     static final String SRC_ATTR = "src";
 
-    static URI parseImageURI(InputStream html) throws XmlPullParserException, IOException {
-        XmlPullParser parser = getParser(html);
+    static URI parseImageURI(InputStream html) throws IOException {
+        try {
+            XmlPullParser parser = getParser(html);
 
-        int eventType = parser.getEventType();
-        while (eventType != XmlPullParser.END_DOCUMENT) {
-            if(eventType == XmlPullParser.START_TAG) {
-                String name = parser.getName();
-                if (IMG_TAG.equalsIgnoreCase(name)) {
-                    String src = parser.getAttributeValue(null, SRC_ATTR);
-                    return string2URI(src);
+            int eventType = parser.getEventType();
+            while (eventType != XmlPullParser.END_DOCUMENT) {
+                if (eventType == XmlPullParser.START_TAG) {
+                    String name = parser.getName();
+                    if (IMG_TAG.equalsIgnoreCase(name)) {
+                        String src = parser.getAttributeValue(null, SRC_ATTR);
+                        return string2URI(src);
+                    }
                 }
+                eventType = parser.next();
             }
-            eventType = parser.next();
+        } catch (XmlPullParserException e) {
+            throw new IOException(String.valueOf(e));   //bad but no specific constructor :(
         }
-
         return null;
     }
 
