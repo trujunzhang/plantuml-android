@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">plantuml-android</string>
+    <string name="app_name">PlantUML</string>
+    <string name="processing">Processing...</string>
 </resources>
