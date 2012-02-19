@@ -54,9 +54,11 @@ public class ConvertActivity extends Activity {
         protected void onPostExecute(File file) {
             finish();
             //TODO: check nullness of file
-            Intent intent = new Intent(Intent.ACTION_SEND, Uri.fromFile(file));
+            Uri fileUri = Uri.fromFile(file);
+            Intent intent = new Intent(Intent.ACTION_SEND, fileUri);
             intent.setType(PNG_TYPE);
-            Intent chooser = Intent.createChooser(intent, getString(R.string.app_name));
+            intent.putExtra(Intent.EXTRA_STREAM, fileUri);
+            Intent chooser = Intent.createChooser(intent, getString(R.string.save_to));
             startActivity(chooser);
         }
 

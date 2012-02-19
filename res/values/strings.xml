@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">PlantUML</string>
     <string name="processing">Processing...</string>
+    <string name="save_to">PlantUML save to</string>
 </resources>
