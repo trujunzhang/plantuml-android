@@ -7,6 +7,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import com.plantuml.client.PlantUMLClient;
+import ru.gelin.android.plantuml.intent.IntentText;
+import ru.gelin.android.plantuml.intent.IntentTextException;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,7 +36,14 @@ public class ConvertActivity extends Activity {
 
         //TODO: check network availability
 
-        String text = intent.getStringExtra(Intent.EXTRA_TEXT);
+        String text = null;
+        try {
+            text = IntentText.getInstance(this, intent).getText();
+        } catch (Exception e) {
+            finish();   //TODO: show errror message
+            return;
+        }
+        //TODO: check for null
         new DownloadImageTask().execute(text);
     }
 
