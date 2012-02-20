@@ -24,6 +24,24 @@ public class PlantUMLClientTest extends AndroidTestCase {
         assertTrue(image.lastModified() > startTime);
         assertTrue(image.length() > 0);
     }
+
+    public void testGetDiagramFileTwoLines() throws IOException {
+        long startTime = System.currentTimeMillis();
+        File image = client.getDiagramFile("Alice -> Bob\nBob -> Carol");
+        assertTrue(image.isFile());
+        assertTrue(image.lastModified() > startTime);
+        assertTrue(image.length() > 0);
+    }
+
+    public void testGetEmptyDiagramFile() throws IOException {
+        long startTime = System.currentTimeMillis();
+        try {
+            File image = client.getDiagramFile("");
+        } catch (IllegalArgumentException e) {
+            return; //pass
+        }
+        fail();
+    }
     
     public void testGetImageFile() throws URISyntaxException {
         assertEquals(new File("/sdcard/tmp/plantuml/file.png"),

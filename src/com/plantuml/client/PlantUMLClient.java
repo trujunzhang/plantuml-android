@@ -66,6 +66,12 @@ public class PlantUMLClient {
      *  @return the location of the image file in the temp folder
      */
     public File getDiagramFile(String uml) throws IOException {
+        if (uml == null) {
+            throw new NullPointerException("uml cannot be null");
+        }
+        if ("".equals(uml)) {
+            throw new IllegalArgumentException("uml cannot be empty string");
+        }
         InputStream html = getHTML(uml);
         URI imageURI = HTMLParser.parseImageURI(html);
         File imageFile = getImageFile(imageURI);
