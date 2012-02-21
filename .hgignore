@@ -2,3 +2,6 @@ syntax: glob
 .idea
 gen
 bin
+local.properties
+build.properties
+upload.credentials.properties
