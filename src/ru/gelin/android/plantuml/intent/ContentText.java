@@ -32,7 +32,6 @@ public class ContentText extends AbstractFileText {
      *  Queries the content for file name, mime type and size.
      *  If the query was done before the new attempt is skipped.
      */
-    @Override
     void queryContent() {
         if (this.queried) {
             return;

@@ -21,6 +21,11 @@ public class TextText extends IntentText {
     }
     
     @Override
+    public String getText() {
+        return this.text;
+    }   
+    
+    @Override
     public String toString() {
         return "text: " + this.text;
     }

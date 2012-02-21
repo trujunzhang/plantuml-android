@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="ru.gelin.android.plantuml"
           android:versionCode="1"
-          android:versionName="0.0.1-alpha">
+          android:versionName="0.0.1-alpha1">
 
     <application android:icon="@drawable/icon" android:label="@string/app_name">
 

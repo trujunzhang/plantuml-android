@@ -1,6 +1,6 @@
 package com.plantuml.client;
 
-import android.test.AndroidTestCase;
+import android.test.InstrumentationTestCase;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
@@ -8,12 +8,12 @@ import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-public class HTMLParserTest extends AndroidTestCase {
+public class HTMLParserTest extends InstrumentationTestCase {
 
     InputStream html;
     
     public void setUp() throws Exception {
-        html = getContext().getResources().getAssets().open("response.html");
+        html = getInstrumentation().getContext().getResources().getAssets().open("response.html");
     }
 
     public void testParseImageURI() throws IOException, XmlPullParserException, URISyntaxException {
