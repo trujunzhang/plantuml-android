@@ -13,4 +13,14 @@ public class TextTextTest extends AndroidTestCase {
         assertEquals("Alice -> Bob", IntentText.getInstance(getContext(), intent).getText());
     }
 
+    public void testGetEmptyText() throws IOException, IntentTextException {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        try {
+            IntentText.getInstance(getContext(), intent).getText();
+            fail();
+        } catch (IntentTextException e) {
+            //pass
+        }
+    }
+
 }

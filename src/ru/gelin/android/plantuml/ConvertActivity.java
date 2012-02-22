@@ -2,13 +2,16 @@ package ru.gelin.android.plantuml;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
+import android.widget.Toast;
 import com.plantuml.client.PlantUMLClient;
 import ru.gelin.android.plantuml.intent.IntentText;
-import ru.gelin.android.plantuml.intent.IntentTextException;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,23 +30,29 @@ public class ConvertActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.progress);
 
-        //TODO: check intent correctness
-        Intent intent = getIntent();
+        String text = null;
+        try {
+            text = IntentText.getInstance(this, getIntent()).getText();
+        } catch (Exception e) {
+            finish();
+            Toast.makeText(this, R.string.invalid_intent, Toast.LENGTH_LONG).show();
+            return;
+        }
 
-        //TODO: check SD card availability
+        if (!Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
+            finish();
+            Toast.makeText(this, R.string.no_sd_card, Toast.LENGTH_LONG).show();
+            return;
+        }
         this.tmpDir = new File(Environment.getExternalStorageDirectory(), TMP_DIR);
         this.tmpDir.mkdirs();
 
-        //TODO: check network availability
-
-        String text = null;
-        try {
-            text = IntentText.getInstance(this, intent).getText();
-        } catch (Exception e) {
-            finish();   //TODO: show errror message
+        if (!isNetworkAvailable()) {
+            finish();
+            Toast.makeText(this, R.string.no_network, Toast.LENGTH_LONG).show();
             return;
         }
-        //TODO: check for null
+
         new DownloadImageTask().execute(text);
     }
 
@@ -55,22 +64,42 @@ public class ConvertActivity extends Activity {
             try {
                 return client.getDiagramFile(strings[0]);
             } catch (IOException e) {
-                return null;    //TODO: provide error details
+                Log.e(Tag.TAG, "cannot convert diagram", e);
+                return null;
             }
         }
 
         @Override
         protected void onPostExecute(File file) {
             finish();
-            //TODO: check nullness of file
+            if (file == null) {
+                Toast.makeText(ConvertActivity.this, R.string.cannot_convert, Toast.LENGTH_LONG).show();
+                return;
+            }
             Uri fileUri = Uri.fromFile(file);
-            Intent intent = new Intent(Intent.ACTION_SEND, fileUri);
+            //Intent intent = new Intent(Intent.ACTION_SEND, fileUri);
+            //intent.setType(PNG_TYPE);
+            //intent.putExtra(Intent.EXTRA_STREAM, fileUri);
+            Intent intent = new Intent(Intent.ACTION_VIEW, fileUri);
             intent.setType(PNG_TYPE);
-            intent.putExtra(Intent.EXTRA_STREAM, fileUri);
-            Intent chooser = Intent.createChooser(intent, getString(R.string.save_to));
+            Intent chooser = Intent.createChooser(intent, getString(R.string.open_in));
             startActivity(chooser);
         }
 
     }
+
+    /**
+     *  Check availability of network connections.
+     *  Returns true if any network connection is available.
+     */
+    boolean isNetworkAvailable() {
+        ConnectivityManager manager = (ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo info = manager.getActiveNetworkInfo();
+        if (info == null) {
+            return false;
+        }
+        return info.isAvailable();
+    }
+
 
 }

@@ -5,9 +5,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.test.AndroidTestCase;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -26,6 +23,22 @@ public class FileTextTest extends AndroidTestCase {
         Intent intent = new Intent(Intent.ACTION_SEND);
         Uri file = Uri.fromFile(getContext().getFileStreamPath("alice.iml"));
         intent.putExtra(Intent.EXTRA_STREAM, file);
+        assertEquals("Alice -> Bob", IntentText.getInstance(getContext(), intent).getText());
+    }
+
+    public void testGetEmptyText() throws IOException, IntentTextException {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        try {
+            IntentText.getInstance(getContext(), intent).getText();
+            fail();
+        } catch (IntentTextException e) {
+            //pass
+        }
+    }
+
+    public void testGetTextViewAction() throws IOException, IntentTextException {
+        Uri file = Uri.fromFile(getContext().getFileStreamPath("alice.iml"));
+        Intent intent = new Intent(Intent.ACTION_VIEW, file);
         assertEquals("Alice -> Bob", IntentText.getInstance(getContext(), intent).getText());
     }
 

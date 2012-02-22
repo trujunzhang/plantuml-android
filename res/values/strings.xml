@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">PlantUML</string>
     <string name="processing">Processing...</string>
-    <string name="save_to">PlantUML save to</string>
+    <string name="send_to">PlantUML send to...</string>
+    <string name="open_in">PlantUML open in...</string>
+    <string name="invalid_intent">Cannot process. Please send the text.</string>
+    <string name="cannot_convert">Cannot process. plantuml.com doesn\'t work.</string>
+    <string name="no_sd_card">Cannot process. Please insert SD card.</string>
+    <string name="no_network">Cannot process. Please connect to Internet.</string>
 </resources>
