@@ -23,7 +23,7 @@ public class ContentText extends AbstractFileText {
             //MediaStore.MediaColumns.TITLE,
     };
     
-    ContentText(Context context, Intent intent) throws IntentTextException {
+    ContentText(Context context, Intent intent) throws IntentException {
         super(context, intent);
         queryContent();     //called from SEND, can init here
     }

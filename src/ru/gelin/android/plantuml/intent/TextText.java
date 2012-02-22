@@ -13,10 +13,10 @@ public class TextText extends IntentText {
     /** The text content of the file */
     String text = "";
     
-    TextText(Intent intent) throws IntentTextException {
+    TextText(Intent intent) throws IntentException {
         this.text = intent.getStringExtra(Intent.EXTRA_TEXT);
         if (this.text == null) {
-            throw new IntentTextException("null text");
+            throw new IntentException("null text");
         }
     }
     

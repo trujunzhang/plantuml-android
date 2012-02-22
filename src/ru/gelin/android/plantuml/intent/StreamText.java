@@ -25,7 +25,7 @@ public class StreamText extends IntentText {
     /** Flag indicating that the Uri was queried for some additional information */
     protected volatile boolean queried = false;
     
-    StreamText(Context context, Intent intent) {
+    StreamText(Context context, Intent intent) throws IntentException {
         this.contentResolver = context.getContentResolver();
         this.uri = getStreamUri(intent);
     }

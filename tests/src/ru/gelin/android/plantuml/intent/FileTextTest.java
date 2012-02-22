@@ -19,24 +19,24 @@ public class FileTextTest extends AndroidTestCase {
         out.close();
     }
     
-    public void testGetText() throws IOException, IntentTextException {
+    public void testGetText() throws IOException, IntentException {
         Intent intent = new Intent(Intent.ACTION_SEND);
         Uri file = Uri.fromFile(getContext().getFileStreamPath("alice.iml"));
         intent.putExtra(Intent.EXTRA_STREAM, file);
         assertEquals("Alice -> Bob", IntentText.getInstance(getContext(), intent).getText());
     }
 
-    public void testGetEmptyText() throws IOException, IntentTextException {
+    public void testGetEmptyText() throws IOException, IntentException {
         Intent intent = new Intent(Intent.ACTION_SEND);
         try {
             IntentText.getInstance(getContext(), intent).getText();
             fail();
-        } catch (IntentTextException e) {
+        } catch (IntentException e) {
             //pass
         }
     }
 
-    public void testGetTextViewAction() throws IOException, IntentTextException {
+    public void testGetTextViewAction() throws IOException, IntentException {
         Uri file = Uri.fromFile(getContext().getFileStreamPath("alice.iml"));
         Intent intent = new Intent(Intent.ACTION_VIEW, file);
         assertEquals("Alice -> Bob", IntentText.getInstance(getContext(), intent).getText());

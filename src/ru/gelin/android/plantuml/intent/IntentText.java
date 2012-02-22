@@ -15,14 +15,14 @@ public abstract class IntentText {
      *  Creates the concrete instance of the IntentText from Intent.
      *  @throws IntentTextException if it's not possible to create the text from intent
      */
-    public static IntentText getInstance(Context context, Intent intent) throws IntentTextException {
+    public static IntentText getInstance(Context context, Intent intent) throws IntentException {
         if (isText(intent)) {
             return new TextText(intent);
         }
         Uri uri = getStreamUri(intent);
         //Log.i(TAG, "file uri: " + uri);
         if (uri == null) {
-            throw new IntentTextException("null file uri");
+            throw new IntentException("null file uri");
         }
         String scheme = uri.getScheme();
         if ("file".equals(scheme)) {
@@ -50,8 +50,14 @@ public abstract class IntentText {
     /**
      *  Returns the Uri of the stream of the intent.
      */
-    static Uri getStreamUri(Intent intent) {
-        return (Uri)intent.getParcelableExtra(Intent.EXTRA_STREAM);
+    static Uri getStreamUri(Intent intent) throws IntentException {
+        if (Intent.ACTION_SEND.equals(intent.getAction())) {
+            return (Uri)intent.getParcelableExtra(Intent.EXTRA_STREAM);
+        } else if (Intent.ACTION_VIEW.equals(intent.getAction())) {
+            return intent.getData();
+        } else {
+            throw new IntentException("unknown intent action: " + intent.getAction());
+        }
     }
 
 }

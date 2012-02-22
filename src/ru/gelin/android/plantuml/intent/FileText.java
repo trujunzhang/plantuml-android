@@ -11,16 +11,16 @@ import java.util.List;
  */
 public class FileText extends AbstractFileText {
 
-    public FileText(Context context, Intent intent) throws IntentTextException {
+    public FileText(Context context, Intent intent) throws IntentException {
         super(context, intent);
         this.file = getFile();
     }
 
     /**
      *  Returns the file as File for file:/// URIs
-     *  @throws IntentTextException if the URI cannot be converted to file
+     *  @throws IntentException if the URI cannot be converted to file
      */
-    File getFile() throws IntentTextException {
+    File getFile() throws IntentException {
         try {
             List<String> pathSegments = this.uri.getPathSegments();
             File result = new File("/");
@@ -29,7 +29,7 @@ public class FileText extends AbstractFileText {
             }
             return result;
         } catch (Exception e) {
-            throw new IntentTextException("cannot convert URI to file", e);
+            throw new IntentException("cannot convert URI to file", e);
         }
     }
     

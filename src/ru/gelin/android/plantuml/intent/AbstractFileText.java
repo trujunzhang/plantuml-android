@@ -12,7 +12,7 @@ public abstract class AbstractFileText extends StreamText {
 
     File file;
     
-    public AbstractFileText(Context context, Intent intent) throws IntentTextException {
+    public AbstractFileText(Context context, Intent intent) throws IntentException {
         super(context, intent);
     }
 
