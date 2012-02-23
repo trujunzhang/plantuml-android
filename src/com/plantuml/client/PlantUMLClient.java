@@ -94,6 +94,7 @@ public class PlantUMLClient {
     }
     
     File getImageFile(URI uri) {
+        //TODO: check for null
         File serverPath = new File(uri.getPath());
         String fileName = serverPath.getName() + PNG_EXT;
         return new File(this.tempPath, fileName);

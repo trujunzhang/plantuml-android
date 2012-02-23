@@ -25,10 +25,13 @@ public class ConvertActivity extends Activity {
     static final String PNG_TYPE = "image/png";
     
     File tmpDir;
+    MediaScanner mediaScanner;
     
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.progress);
+
+        this.mediaScanner = new MediaScanner(this);
 
         String text = null;
         try {
@@ -56,6 +59,12 @@ public class ConvertActivity extends Activity {
         new DownloadImageTask().execute(text);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        this.mediaScanner.disconnect();
+    }
+
     class DownloadImageTask extends AsyncTask<String, Void, File> {
 
         @Override
@@ -76,6 +85,7 @@ public class ConvertActivity extends Activity {
                 Toast.makeText(ConvertActivity.this, R.string.cannot_convert, Toast.LENGTH_LONG).show();
                 return;
             }
+            ConvertActivity.this.mediaScanner.scanFile(file, PNG_TYPE);
             Uri fileUri = Uri.fromFile(file);
             //Intent intent = new Intent(Intent.ACTION_SEND, fileUri);
             //intent.setType(PNG_TYPE);
