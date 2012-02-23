@@ -91,9 +91,11 @@ public class ConvertActivity extends Activity {
             //intent.setType(PNG_TYPE);
             //intent.putExtra(Intent.EXTRA_STREAM, fileUri);
             Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setClass(ConvertActivity.this, ImageViewActivity.class);
             intent.setDataAndType(fileUri, PNG_TYPE);
-            Intent chooser = Intent.createChooser(intent, getString(R.string.open_in));
-            startActivity(chooser);
+            //Intent chooser = Intent.createChooser(intent, getString(R.string.open_in));
+            //startActivity(chooser);
+            startActivity(intent);
         }
 
     }

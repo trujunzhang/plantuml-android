@@ -7,4 +7,5 @@
     <string name="cannot_convert">Cannot process. plantuml.com doesn\'t work.</string>
     <string name="no_sd_card">Cannot process. Please insert SD card.</string>
     <string name="no_network">Cannot process. Please connect to Internet.</string>
+    <string name="invalid_image">Cannot process. Please open the image.</string>
 </resources>
