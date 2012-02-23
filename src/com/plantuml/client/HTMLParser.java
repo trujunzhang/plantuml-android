@@ -18,7 +18,7 @@ class HTMLParser {
     static final String IMG_TAG = "img";
     static final String SRC_ATTR = "src";
 
-    static URI parseImageURI(InputStream html) throws IOException {
+    static URI parseImageURI(InputStream html) throws IOException, PlantUMLClientException {
         try {
             XmlPullParser parser = getParser(html);
 
@@ -34,7 +34,7 @@ class HTMLParser {
                 eventType = parser.next();
             }
         } catch (XmlPullParserException e) {
-            throw new IOException(String.valueOf(e));   //bad but no specific constructor :(
+            throw new PlantUMLClientException(e);
         }
         return null;
     }

@@ -64,19 +64,28 @@ public class PlantUMLClient {
      *  Returns the new file location.
      *  @param  uml UML as a text in PlantUML format
      *  @return the location of the image file in the temp folder
+     *  @throws PlantUMLClientException if conversion cannot be done
      */
-    public File getDiagramFile(String uml) throws IOException {
+    public File getDiagramFile(String uml) throws PlantUMLClientException {
         if (uml == null) {
             throw new NullPointerException("uml cannot be null");
         }
         if ("".equals(uml)) {
             throw new IllegalArgumentException("uml cannot be empty string");
         }
-        InputStream html = getHTML(uml);
-        URI imageURI = HTMLParser.parseImageURI(html);
-        File imageFile = getImageFile(imageURI);
-        loadImage(imageURI, imageFile);
-        return imageFile;
+        try {
+            InputStream html = getHTML(uml);
+            URI imageURI = HTMLParser.parseImageURI(html);
+            if (imageURI == null) {
+                throw new PlantUMLClientException("no image uri");
+            }
+            File imageFile = getImageFile(imageURI);
+            loadImage(imageURI, imageFile);
+            return imageFile;
+        } catch (IOException e) {
+            throw new PlantUMLClientException(e);
+        }
+
     }
     
     InputStream getHTML(String uml) throws IOException {
@@ -94,7 +103,6 @@ public class PlantUMLClient {
     }
     
     File getImageFile(URI uri) {
-        //TODO: check for null
         File serverPath = new File(uri.getPath());
         String fileName = serverPath.getName() + PNG_EXT;
         return new File(this.tempPath, fileName);

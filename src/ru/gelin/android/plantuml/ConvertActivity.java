@@ -11,10 +11,10 @@ import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
 import com.plantuml.client.PlantUMLClient;
+import com.plantuml.client.PlantUMLClientException;
 import ru.gelin.android.plantuml.intent.IntentText;
 
 import java.io.File;
-import java.io.IOException;
 
 /**
  *  Receives the UML text, converts it to the image with plantuml.com site, sends the image to another recipients.
@@ -72,7 +72,7 @@ public class ConvertActivity extends Activity {
             PlantUMLClient client = new PlantUMLClient(ConvertActivity.this.tmpDir);
             try {
                 return client.getDiagramFile(strings[0]);
-            } catch (IOException e) {
+            } catch (PlantUMLClientException e) {
                 Log.e(Tag.TAG, "cannot convert diagram", e);
                 return null;
             }
