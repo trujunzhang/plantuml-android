@@ -1,8 +1,8 @@
 package ru.gelin.android.plantuml;
 
-import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Toast;
@@ -11,7 +11,7 @@ import android.widget.Toast;
  *  Displays the diagram images saved locally.
  *  Allows to share/open the image in another programs.
  */
-public class ImageViewActivity extends Activity {
+public class ImageViewActivity extends FragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.image_view);

@@ -30,8 +30,9 @@
       <sourceFolder url="file://$MODULE_DIR$/gen" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/test" isTestSource="true" />
     </content>
-    <orderEntry type="jdk" jdkName="Android 1.6 Platform" jdkType="Android SDK" />
+    <orderEntry type="jdk" jdkName="Android 3.2 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="ActionBarSherlock" />
   </component>
 </module>
 
