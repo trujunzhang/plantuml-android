@@ -8,4 +8,6 @@
     <string name="no_sd_card">Cannot process. Please insert SD card.</string>
     <string name="no_network">Cannot process. Please connect to Internet.</string>
     <string name="invalid_image">Cannot process. Please open the image.</string>
+    <string name="open">Open</string>
+    <string name="send">Send</string>
 </resources>

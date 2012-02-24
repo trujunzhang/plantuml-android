@@ -31,7 +31,8 @@
         </activity>
 
         <activity android:name=".ImageViewActivity"
-                android:theme="@style/Theme.Sherlock">
+                android:theme="@style/Theme.Sherlock"
+                android:logo="@drawable/action_bar_logo">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT"/>
