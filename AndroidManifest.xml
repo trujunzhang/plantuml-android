@@ -33,11 +33,11 @@
         <activity android:name=".ImageViewActivity"
                 android:theme="@style/Theme.Sherlock"
                 android:logo="@drawable/action_bar_logo">
-            <intent-filter>
+            <!--<intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <data android:mimeType="image/*"/>
-            </intent-filter>
+            </intent-filter>-->
         </activity>
 
     </application>
