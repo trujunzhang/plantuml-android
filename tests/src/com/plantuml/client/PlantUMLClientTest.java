@@ -9,6 +9,9 @@ import java.io.StringReader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.CharBuffer;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class PlantUMLClientTest extends AndroidTestCase {
 
@@ -47,8 +50,10 @@ public class PlantUMLClientTest extends AndroidTestCase {
     }
     
     public void testGetImageFile() throws URISyntaxException {
-        assertEquals(new File("/sdcard/tmp/plantuml/file.png"),
-                client.getImageFile(new URI("http://plantuml.com:80/img/file")));
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm-ss");
+        assertEquals(new File("/sdcard/tmp/plantuml/plantuml_" +
+                format.format(new Date()) + ".png"),
+                client.getImageFile());
     }
 
     public void testGetDiagramTagInUML() throws IOException, PlantUMLClientException {

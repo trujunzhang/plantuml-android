@@ -17,7 +17,9 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -36,7 +38,7 @@ public class PlantUMLClient {
     
     static final String ENCODING = "UTF-8";
     static final String TEXT_PARAM = "text";
-    static final String PNG_EXT = ".png";
+    static final SimpleDateFormat FILE_PATTERN = new SimpleDateFormat("'plantuml_'yyyy-MM-dd'T'HH-mm-ss'.png'");
 
     URI submitURI = DEFAULT_URI;
     File tempPath;
@@ -82,7 +84,7 @@ public class PlantUMLClient {
             if (imageURI == null) {
                 throw new PlantUMLClientException("no image uri");
             }
-            File imageFile = getImageFile(imageURI);
+            File imageFile = getImageFile();
             loadImage(imageURI, imageFile);
             return imageFile;
         } catch (IOException e) {
@@ -105,10 +107,8 @@ public class PlantUMLClient {
         return responseEntity.getContent();
     }
     
-    File getImageFile(URI uri) {
-        File serverPath = new File(uri.getPath());
-        String fileName = serverPath.getName() + PNG_EXT;
-        return new File(this.tempPath, fileName);
+    File getImageFile() {
+        return new File(this.tempPath, FILE_PATTERN.format(new Date()));
     }
 
     void loadImage(URI uri, File file) throws IOException {
