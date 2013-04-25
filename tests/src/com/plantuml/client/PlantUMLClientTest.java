@@ -17,7 +17,7 @@ public class PlantUMLClientTest extends AndroidTestCase {
         client = new PlantUMLClient(dir);
     } 
 
-    public void testGetDiagramFile() throws IOException {
+    public void testGetDiagramFile() throws IOException, PlantUMLClientException {
         long startTime = System.currentTimeMillis();
         File image = client.getDiagramFile("Alice -> Bob");
         assertTrue(image.isFile());
@@ -25,7 +25,7 @@ public class PlantUMLClientTest extends AndroidTestCase {
         assertTrue(image.length() > 0);
     }
 
-    public void testGetDiagramFileTwoLines() throws IOException {
+    public void testGetDiagramFileTwoLines() throws IOException, PlantUMLClientException {
         long startTime = System.currentTimeMillis();
         File image = client.getDiagramFile("Alice -> Bob\nBob -> Carol");
         assertTrue(image.isFile());
@@ -33,7 +33,7 @@ public class PlantUMLClientTest extends AndroidTestCase {
         assertTrue(image.length() > 0);
     }
 
-    public void testGetEmptyDiagramFile() throws IOException {
+    public void testGetEmptyDiagramFile() throws IOException, PlantUMLClientException {
         long startTime = System.currentTimeMillis();
         try {
             File image = client.getDiagramFile("");

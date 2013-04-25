@@ -16,7 +16,7 @@ public class HTMLParserTest extends InstrumentationTestCase {
         html = getInstrumentation().getContext().getResources().getAssets().open("response.html");
     }
 
-    public void testParseImageURI() throws IOException, XmlPullParserException, URISyntaxException {
+    public void testParseImageURI() throws IOException, XmlPullParserException, URISyntaxException, PlantUMLClientException {
         assertEquals(new URI("http://plantuml.com:80/plantuml/img/Syp9J4vLqBLJSCfF0W00"),
                 HTMLParser.parseImageURI(html));
     }
