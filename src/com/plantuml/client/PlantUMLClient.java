@@ -53,6 +53,9 @@ public class PlantUMLClient {
         if (!tempPath.isDirectory() || !tempPath.canWrite()) {
             throw new IllegalArgumentException("tempPath must exist and be writable");
         }
+        //if (!tempPath.isDirectory()) {
+        //    throw new IllegalArgumentException("tempPath must exist");
+        //}
         this.tempPath = tempPath;
         this.client = new DefaultHttpClient();
     }

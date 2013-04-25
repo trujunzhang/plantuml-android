@@ -48,6 +48,7 @@ public class ConvertActivity extends Activity {
             return;
         }
         this.tmpDir = new File(Environment.getExternalStorageDirectory(), TMP_DIR);
+        Log.d(Tag.TAG, "temp dir: " + this.tmpDir);
         this.tmpDir.mkdirs();
 
         if (!isNetworkAvailable()) {
