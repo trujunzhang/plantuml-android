@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ru.gelin.android.preference.BigSummaryPreference
+            android:title="@string/how_to_use"
+            android:summary="@string/how_to_use_summary"
+            android:shouldDisableView="true"/>
+
+</PreferenceScreen>
