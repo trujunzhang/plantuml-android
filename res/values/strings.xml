@@ -16,4 +16,7 @@
 \n3. Wait text to be send to PlantUML site and the resulting image to be downloaded to temp folder.
 \n4. Preview the resulting image.
 \n5. Send or open the image in an image editor or to a document or cloud.</string>
+    <string name="plantuml_server">PlantUML Server</string>
+    <string name="plantuml_com">http://plantuml.com/plantuml/form</string>
+    <string name="plantuml_server_dialog_message">Enter your PlantUML servlet location, including full path to a form target.</string>
 </resources>

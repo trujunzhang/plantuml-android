@@ -6,4 +6,10 @@
             android:summary="@string/how_to_use_summary"
             android:shouldDisableView="true"/>
 
+    <EditTextPreference android:key="plantuml_server"
+                        android:title="@string/plantuml_server"
+                        android:summary="@string/plantuml_com"
+                        android:defaultValue="@string/plantuml_com"
+                        android:dialogMessage="@string/plantuml_server_dialog_message"/>
+
 </PreferenceScreen>
