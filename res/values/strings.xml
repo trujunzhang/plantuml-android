@@ -17,7 +17,7 @@
 \n4. Preview the resulting image.
 \n5. Send or open the image in an image editor or to a document or cloud.</string>
     <string name="plantuml_server">PlantUML Server</string>
-    <string name="plantuml_com">http://plantuml.com/plantuml/form</string>
+    <string name="plantuml_com">http://plantuml.com/plantuml/img</string>
     <string name="plantuml_server_dialog_message">Enter your PlantUML servlet location, including full path to a form target.</string>
     <string name="invalid_plantuml_server">Cannot process. PlantUML server address is wrong.</string>
 </resources>

@@ -1,5 +1,7 @@
 package com.plantuml.client;
 
+import net.sourceforge.plantuml.code.Transcoder;
+import net.sourceforge.plantuml.code.TranscoderUtil;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -30,7 +32,7 @@ public class PlantUMLClient {
     public static final URI DEFAULT_URI;
     static {
         try {
-            DEFAULT_URI = new URI("http://plantuml.com/plantuml/form");
+            DEFAULT_URI = new URI("http://plantuml.com/plantuml/img");
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);  //should never happen
         }
@@ -40,7 +42,7 @@ public class PlantUMLClient {
     static final String TEXT_PARAM = "text";
     static final SimpleDateFormat FILE_PATTERN = new SimpleDateFormat("'plantuml_'yyyy-MM-dd'T'HH-mm-ss'.png'");
 
-    URI submitURI = DEFAULT_URI;
+    URI getImageURI = DEFAULT_URI;
     File tempPath;
     HttpClient client;
 
@@ -66,7 +68,7 @@ public class PlantUMLClient {
      *  Sets alternative PlantUML server URL
      */
     public void setServerURI(URI server) {
-        this.submitURI = server;
+        this.getImageURI = server;
     }
 
     /**
@@ -86,8 +88,7 @@ public class PlantUMLClient {
             throw new IllegalArgumentException("uml cannot be empty string");
         }
         try {
-            InputStream html = getHTML(uml);
-            URI imageURI = HTMLParser.parseImageURI(html);
+            URI imageURI = getImageURI(uml);
             if (imageURI == null) {
                 throw new PlantUMLClientException("no image uri");
             }
@@ -99,9 +100,33 @@ public class PlantUMLClient {
         }
 
     }
-    
+
+    URI getImageURI(String uml) throws IOException {
+        Transcoder trans = TranscoderUtil.getDefaultTranscoder();
+        String code = trans.encode(normalizeUML(uml));
+        return this.getImageURI.resolve("/" + code);
+    }
+
+    String normalizeUML(String text) {
+        //https://github.com/arnaudroques/plantumlservlet/blob/master/src/main/java/net/sourceforge/plantuml/servlet/UmlDiagramService.java
+        String uml;
+        if (text.startsWith("@start")) {
+            uml = text;
+        } else {
+            StringBuilder plantUmlSource = new StringBuilder();
+            plantUmlSource.append("@startuml\n");
+            plantUmlSource.append(text);
+            if (text.endsWith("\n") == false) {
+                plantUmlSource.append("\n");
+            }
+            plantUmlSource.append("@enduml");
+            uml = plantUmlSource.toString();
+        }
+        return uml;
+    }
+
     InputStream getHTML(String uml) throws IOException {
-        HttpPost request = new HttpPost(this.submitURI);
+        HttpPost request = new HttpPost(this.getImageURI);
         List<NameValuePair> parameters = new ArrayList<NameValuePair>();
         parameters.add(new BasicNameValuePair(TEXT_PARAM, uml));
         try {
