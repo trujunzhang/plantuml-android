@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class PlantUMLClient {
 
-    static final URI DEFAULT_URI;
+    public static final URI DEFAULT_URI;
     static {
         try {
             DEFAULT_URI = new URI("http://plantuml.com/plantuml/form");
@@ -60,6 +60,13 @@ public class PlantUMLClient {
         //}
         this.tempPath = tempPath;
         this.client = new DefaultHttpClient();
+    }
+
+    /**
+     *  Sets alternative PlantUML server URL
+     */
+    public void setServerURI(URI server) {
+        this.submitURI = server;
     }
 
     /**

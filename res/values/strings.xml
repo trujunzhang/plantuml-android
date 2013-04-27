@@ -4,7 +4,7 @@
     <string name="send_to">PlantUML send to...</string>
     <string name="open_in">PlantUML open in...</string>
     <string name="invalid_intent">Cannot process. Please send the text.</string>
-    <string name="cannot_convert">Cannot process. plantuml.com doesn\'t work.</string>
+    <string name="cannot_convert">Cannot process. PlantUML server doesn\'t work.</string>
     <string name="no_sd_card">Cannot process. Please insert SD card.</string>
     <string name="no_network">Cannot process. Please connect to Internet.</string>
     <string name="invalid_image">Cannot process. Please open the image.</string>
@@ -19,4 +19,5 @@
     <string name="plantuml_server">PlantUML Server</string>
     <string name="plantuml_com">http://plantuml.com/plantuml/form</string>
     <string name="plantuml_server_dialog_message">Enter your PlantUML servlet location, including full path to a form target.</string>
+    <string name="invalid_plantuml_server">Cannot process. PlantUML server address is wrong.</string>
 </resources>
