@@ -15,6 +15,7 @@
     <orderEntry type="jdk" jdkName="Android 3.2" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="ActionBarSherlock" />
+    <orderEntry type="module" module-name="ActionBarSherlock (Preference plugin)" />
   </component>
 </module>
 
