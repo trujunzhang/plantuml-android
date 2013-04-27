@@ -4,7 +4,7 @@
     <ru.gelin.android.preference.BigSummaryPreference
             android:title="@string/how_to_use"
             android:summary="@string/how_to_use_summary"
-            android:shouldDisableView="true"/>
+            android:selectable="true"/>
 
     <ru.gelin.android.preference.SummaryTextPreference
             android:key="plantuml_server"
