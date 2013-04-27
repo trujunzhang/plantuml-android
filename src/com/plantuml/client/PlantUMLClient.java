@@ -94,7 +94,7 @@ public class PlantUMLClient {
             File imageFile = getImageFile();
             loadImage(imageURI, imageFile);
             return imageFile;
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new PlantUMLClientException(e);
         }
 
