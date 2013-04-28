@@ -13,7 +13,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 import com.plantuml.client.PlantUMLClient;
-import com.plantuml.client.PlantUMLClientException;
+import com.plantuml.client.PlantUMLDiagram;
 import ru.gelin.android.plantuml.intent.IntentText;
 
 import java.io.File;
@@ -82,15 +82,15 @@ public class ConvertActivity extends Activity {
         this.mediaScanner.disconnect();
     }
 
-    class DownloadImageTask extends AsyncTask<String, Void, File> {
+    class DownloadImageTask extends AsyncTask<String, Void, PlantUMLDiagram> {
 
         @Override
-        protected File doInBackground(String... strings) {
+        protected PlantUMLDiagram doInBackground(String... strings) {
             PlantUMLClient client = new PlantUMLClient(ConvertActivity.this.tmpDir);
             try {
                 client.setServerURI(ConvertActivity.this.plantUMLServerURI);
                 Log.d(Tag.TAG, "sending text to " + ConvertActivity.this.plantUMLServerURI);
-                return client.getDiagramFile(strings[0]);
+                return client.getDiagram(strings[0]);
             } catch (Exception e) {
                 Log.e(Tag.TAG, "cannot convert diagram", e);
                 return null;
@@ -98,22 +98,19 @@ public class ConvertActivity extends Activity {
         }
 
         @Override
-        protected void onPostExecute(File file) {
+        protected void onPostExecute(PlantUMLDiagram diagram) {
             finish();
-            if (file == null) {
+            if (diagram == null) {
                 Toast.makeText(ConvertActivity.this, R.string.cannot_convert, Toast.LENGTH_LONG).show();
                 return;
             }
+            File file = diagram.getImageFile();
+            //TODO process image uri and uml text
             ConvertActivity.this.mediaScanner.scanFile(file, PNG_TYPE);
             Uri fileUri = Uri.fromFile(file);
-            //Intent intent = new Intent(Intent.ACTION_SEND, fileUri);
-            //intent.setType(PNG_TYPE);
-            //intent.putExtra(Intent.EXTRA_STREAM, fileUri);
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setClass(ConvertActivity.this, ImageViewActivity.class);
             intent.setDataAndType(fileUri, PNG_TYPE);
-            //Intent chooser = Intent.createChooser(intent, getString(R.string.open_in));
-            //startActivity(chooser);
             startActivity(intent);
         }
 

@@ -83,12 +83,12 @@ public class PlantUMLClient {
      *  Converts the input text into the UML diagram.
      *  Sends the text into plantuml.com server,
      *  saves the resulting image as a file in temp folder,
-     *  Returns the new file location.
+     *  Returns the new file location and the server image URI.
      *  @param  uml UML as a text in PlantUML format
      *  @return the location of the image file in the temp folder
      *  @throws PlantUMLClientException if conversion cannot be done
      */
-    public File getDiagramFile(String uml) throws PlantUMLClientException {
+    public PlantUMLDiagram getDiagram(String uml) throws PlantUMLClientException {
         if (uml == null) {
             throw new NullPointerException("uml cannot be null");
         }
@@ -102,7 +102,7 @@ public class PlantUMLClient {
             }
             File imageFile = getImageFile();
             loadImage(imageURI, imageFile);
-            return imageFile;
+            return new PlantUMLDiagram(imageFile, imageURI, uml);
         } catch (Exception e) {
             throw new PlantUMLClientException(e);
         }
