@@ -7,9 +7,17 @@
           android:title="@string/open"
           android:showAsAction="ifRoom"/>
 
-    <item android:id="@+id/send_menu"
+    <item android:id="@+id/share_menu"
           android:icon="@android:drawable/ic_menu_share"
-          android:title="@string/send"
+          android:title="@string/share"
           android:showAsAction="ifRoom"/>
+
+    <item android:id="@+id/share_url_menu"
+          android:icon="@android:drawable/ic_menu_share"
+          android:title="@string/share_url"/>
+
+    <item android:id="@+id/share_uml_menu"
+          android:icon="@android:drawable/ic_menu_share"
+          android:title="@string/share_uml"/>
 
 </menu>

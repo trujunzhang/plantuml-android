@@ -1,15 +1,15 @@
 <resources>
     <string name="app_name">PlantUML</string>
     <string name="processing">Processing...</string>
-    <string name="send_to">PlantUML send to...</string>
-    <string name="open_in">PlantUML open in...</string>
+    <string name="share_to">Share PlantUML to...</string>
+    <string name="open_in">Open PlantUML in...</string>
     <string name="invalid_intent">Cannot process. Please send the text.</string>
     <string name="cannot_convert">Cannot process. PlantUML server doesn\'t work.</string>
     <string name="no_sd_card">Cannot process. Please insert SD card.</string>
     <string name="no_network">Cannot process. Please connect to Internet.</string>
     <string name="invalid_image">Cannot process. Please open the image.</string>
     <string name="open">Open</string>
-    <string name="send">Send</string>
+    <string name="share">Share</string>
     <string name="how_to_use">How to use</string>
     <string name="how_to_use_summary">1. Create PlantUML file in your favorite text editor.
 \n2. Send or open the file with PlantUML application.
@@ -20,4 +20,8 @@
     <string name="plantuml_com">http://plantuml.com/plantuml/img/</string>
     <string name="plantuml_server_dialog_message">Enter your PlantUML server location, including full path to an \'img\' servlet.</string>
     <string name="invalid_plantuml_server">Cannot process. PlantUML server address is wrong.</string>
+    <string name="share_url">Share image URL</string>
+    <string name="share_uml">Share UML text</string>
+    <string name="share_url_to">Share PlantUML image URL to...</string>
+    <string name="share_uml_to">Share PlantUML text to...</string>
 </resources>

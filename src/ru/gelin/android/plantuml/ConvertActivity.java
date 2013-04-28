@@ -84,13 +84,16 @@ public class ConvertActivity extends Activity {
 
     class DownloadImageTask extends AsyncTask<String, Void, PlantUMLDiagram> {
 
+        String uml;
+
         @Override
         protected PlantUMLDiagram doInBackground(String... strings) {
             PlantUMLClient client = new PlantUMLClient(ConvertActivity.this.tmpDir);
+            this.uml = strings[0];
             try {
                 client.setServerURI(ConvertActivity.this.plantUMLServerURI);
                 Log.d(Tag.TAG, "sending text to " + ConvertActivity.this.plantUMLServerURI);
-                return client.getDiagram(strings[0]);
+                return client.getDiagram(this.uml);
             } catch (Exception e) {
                 Log.e(Tag.TAG, "cannot convert diagram", e);
                 return null;
@@ -111,6 +114,8 @@ public class ConvertActivity extends Activity {
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setClass(ConvertActivity.this, ImageViewActivity.class);
             intent.setDataAndType(fileUri, PNG_TYPE);
+            intent.putExtra(ImageViewActivity.EXTRA_IMAGE_URI, String.valueOf(diagram.getImageURI()));
+            intent.putExtra(ImageViewActivity.EXTRA_UML_TEXT, this.uml);
             startActivity(intent);
         }
 
