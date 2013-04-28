@@ -2,10 +2,7 @@ package com.plantuml.client;
 
 import android.test.AndroidTestCase;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.StringReader;
+import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.CharBuffer;
@@ -21,22 +18,37 @@ public class PlantUMLClientTest extends AndroidTestCase {
         File dir = new File("/sdcard/tmp/plantuml");
         dir.mkdirs();
         client = new PlantUMLClient(dir);
-    } 
+    }
+
+    void checkPNGFile(File image, long newerThan) throws IOException {
+        assertTrue("not a file", image.isFile());
+        assertTrue("not a new file", image.lastModified() > newerThan);
+        assertTrue("empty file", image.length() > 0);
+        InputStream in = new FileInputStream(image);
+        byte[] sign = new byte[8];
+        in.read(sign);
+        in.close();
+        //http://www.libpng.org/pub/png/spec/1.2/PNG-Structure.html
+        assertEquals("not a png image", 137-256, sign[0]);
+        assertEquals("not a png image", 80, sign[1]);
+        assertEquals("not a png image", 78, sign[2]);
+        assertEquals("not a png image", 71, sign[3]);
+        assertEquals("not a png image", 13, sign[4]);
+        assertEquals("not a png image", 10, sign[5]);
+        assertEquals("not a png image", 26, sign[6]);
+        assertEquals("not a png image", 10, sign[7]);
+    }
 
     public void testGetDiagramFile() throws IOException, PlantUMLClientException {
         long startTime = System.currentTimeMillis();
         File image = client.getDiagramFile("Alice -> Bob");
-        assertTrue(image.isFile());
-        assertTrue(image.lastModified() > startTime);
-        assertTrue(image.length() > 0);
+        checkPNGFile(image, startTime);
     }
 
     public void testGetDiagramFileTwoLines() throws IOException, PlantUMLClientException {
         long startTime = System.currentTimeMillis();
         File image = client.getDiagramFile("Alice -> Bob\nBob -> Carol");
-        assertTrue(image.isFile());
-        assertTrue(image.lastModified() > startTime);
-        assertTrue(image.length() > 0);
+        checkPNGFile(image, startTime);
     }
 
     public void testGetEmptyDiagramFile() throws IOException, PlantUMLClientException {
@@ -65,9 +77,7 @@ public class PlantUMLClientTest extends AndroidTestCase {
         }
         long startTime = System.currentTimeMillis();
         File image = client.getDiagramFile(buf.toString());
-        assertTrue(image.isFile());
-        assertTrue(image.lastModified() > startTime);
-        assertTrue(image.length() > 0);
+        checkPNGFile(image, startTime);
     }
 
     public void testGetDiagramLongFileName() throws IOException, PlantUMLClientException {
@@ -79,9 +89,19 @@ public class PlantUMLClientTest extends AndroidTestCase {
         }
         long startTime = System.currentTimeMillis();
         File image = client.getDiagramFile(buf.toString());
-        assertTrue(image.isFile());
-        assertTrue(image.lastModified() > startTime);
-        assertTrue(image.length() > 0);
+        checkPNGFile(image, startTime);
+    }
+
+    public void testSetServerURI1() throws URISyntaxException {
+        URI uri = new URI("http://plantuml.example.net/plantuml/img/");
+        client.setServerURI(uri);
+        assertEquals(new URI("http://plantuml.example.net/plantuml/img/"), client.getImageURI);
+    }
+
+    public void testSetServerURI2() throws URISyntaxException {
+        URI uri = new URI("http://plantuml.example.net/plantuml/img");  //no final slash
+        client.setServerURI(uri);
+        assertEquals(new URI("http://plantuml.example.net/plantuml/img/"), client.getImageURI);
     }
 
 }

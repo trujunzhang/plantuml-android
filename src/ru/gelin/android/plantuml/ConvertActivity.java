@@ -87,11 +87,11 @@ public class ConvertActivity extends Activity {
         @Override
         protected File doInBackground(String... strings) {
             PlantUMLClient client = new PlantUMLClient(ConvertActivity.this.tmpDir);
-            client.setServerURI(ConvertActivity.this.plantUMLServerURI);
-            Log.d(Tag.TAG, "sending text to " + ConvertActivity.this.plantUMLServerURI);
             try {
+                client.setServerURI(ConvertActivity.this.plantUMLServerURI);
+                Log.d(Tag.TAG, "sending text to " + ConvertActivity.this.plantUMLServerURI);
                 return client.getDiagramFile(strings[0]);
-            } catch (PlantUMLClientException e) {
+            } catch (Exception e) {
                 Log.e(Tag.TAG, "cannot convert diagram", e);
                 return null;
             }

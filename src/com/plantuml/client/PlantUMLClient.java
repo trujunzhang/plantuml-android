@@ -32,7 +32,7 @@ public class PlantUMLClient {
     public static final URI DEFAULT_URI;
     static {
         try {
-            DEFAULT_URI = new URI("http://plantuml.com/plantuml/img");
+            DEFAULT_URI = new URI("http://plantuml.com/plantuml/img/");
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);  //should never happen
         }
@@ -67,8 +67,16 @@ public class PlantUMLClient {
     /**
      *  Sets alternative PlantUML server URL
      */
-    public void setServerURI(URI server) {
-        this.getImageURI = server;
+    public void setServerURI(URI server) throws URISyntaxException {
+        if (server == null) {
+            throw new NullPointerException("null URI");
+        }
+        if (server.getPath().endsWith("/")) {
+            this.getImageURI = server;
+        } else {
+            this.getImageURI = new URI(server.getScheme(),
+                    server.getAuthority(), server.getPath() + "/", server.getQuery(), null);
+        }
     }
 
     /**
@@ -104,7 +112,7 @@ public class PlantUMLClient {
     URI getImageURI(String uml) throws IOException {
         Transcoder trans = TranscoderUtil.getDefaultTranscoder();
         String code = trans.encode(normalizeUML(uml));
-        return this.getImageURI.resolve("/" + code);
+        return this.getImageURI.resolve(code);
     }
 
     String normalizeUML(String text) {
