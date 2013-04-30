@@ -3,21 +3,19 @@ package ru.gelin.android.plantuml;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.Menu;
-import android.support.v4.view.MenuItem;
-import android.view.MenuInflater;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Toast;
-
-import java.net.URI;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 
 /**
  *  Displays the diagram images saved locally.
  *  Allows to share/open the image in another programs.
  */
-public class ImageViewActivity extends FragmentActivity {
+public class ImageViewActivity extends SherlockActivity {
 
     public static final String EXTRA_IMAGE_URI = ImageViewActivity.class.getPackage().getName() + ".EXTRA_IMAGE_URI";
     public static final String EXTRA_UML_TEXT = ImageViewActivity.class.getPackage().getName() + ".EXTRA_UML_TEXT";
@@ -45,7 +43,7 @@ public class ImageViewActivity extends FragmentActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
+        MenuInflater inflater = getSupportMenuInflater();
         inflater.inflate(R.menu.image_view_menu, menu);
         return true;
     }

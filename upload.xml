@@ -21,7 +21,7 @@
     	    filename="bin/${app}-debug.apk" 
     	    targetfilename="${app}-${manifest(android:versionName)}-${manifest(android:versionCode)}-debug.apk"
     	    summary="Build (${manifest(android:versionName)}, signed by debug key)"
-    	    labels="Type-Package, OpSys-Android_1.6" />
+    	    labels="Type-Package, OpSys-Android_2.1" />
 
 	<copy file="bin/${app}-debug.apk"
 	    todir="/home/gelin/Dropbox/android@gelin"/>
@@ -40,7 +40,7 @@
     	    filename="bin/${app}.apk" 
     	    targetfilename="${app}-${manifest(android:versionName)}-${manifest(android:versionCode)}.apk"
     	    summary="Build (${manifest(android:versionName)})"
-    	    labels="Featured, Type-Package, OpSys-Android_1.6" />
+    	    labels="Featured, Type-Package, OpSys-Android_2.1" />
 
 	<copy file="bin/${app}.apk"
 	    todir="/home/gelin/Dropbox/android@gelin"/>
